@@ -15,6 +15,7 @@ use Piwik\Common;
 use Piwik\Notification;
 use Piwik\Container\StaticContainer;
 use Piwik\Log\LoggerInterface;
+use Piwik\Plugins\RebelNotifications\API;
 
 class RebelNotifications extends \Piwik\Plugin
 {
@@ -28,29 +29,18 @@ class RebelNotifications extends \Piwik\Plugin
     public function getNotifications()
     {
         $this->logger()->info("Get notifications");
-        try {
-            // Call your API function to get enabled notifications
-            $api = new API();
-            $enabledNotifications = $api->getEnabledNotifications();
-            $this->logger()->info("Ok, we are here");
+        $api = new API();
+        $enabledNotifications = $this->getEnabledNotifications();
+        foreach ($enabledNotifications as $notificationData) {
+            $notification = new Notification($notificationData['message']);
+            $notification->title = $notificationData['title'];
+            $notification->context = $notificationData['context'];
+            $notification->priority = $notificationData['priority'];
+            $notification->raw = $notificationData['raw'];
+            $notification->type = $notificationData['type'];
 
-            // Loop through the notifications
-            foreach ($enabledNotifications as $notification) {
-                // Create a new Notification object
-                $this->logger()->info("Title {$notification['title']}");
-                $notification = new Notification($notification['message']); // Pass message as constructor argument
-                $notification->title = $notification['title'];
-                $notification->context = $notification['context'];
-                $notification->priority = $notification['priority'];
-                $notification->raw = $notification['raw'];
-                $notification->type = $notification['type'];
-                Notification\Manager::notify('RebelNotifications_notice', $notification);
-            }
-        } catch (\Exception $e) {
-            $this->logger()->info("Ok, failed {$e->getMessage()}");
+            Notification\Manager::notify('RebelNotifications_' . $notificationData['id'], $notification);
         }
-
-
     }
 
     public function install()
@@ -79,6 +69,20 @@ class RebelNotifications extends \Piwik\Plugin
         }
     }
 
+    private function getEnabledNotifications(): array
+    {
+        $db = Db::get();
+        $query = "SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE `enabled` = ?";
+        $params = [1];
+
+        try {
+            $notifications = $db->fetchAll($query, $params);
+            return $notifications;
+        } catch (\Exception $e) {
+            throw new Exception("Error fetching enabled notifications: " . $e->getMessage());
+        }
+    }
+
     private function getDb()
     {
         return Db::get();
@@ -88,5 +92,4 @@ class RebelNotifications extends \Piwik\Plugin
     {
         return StaticContainer::get(LoggerInterface::class);
     }
-
 }

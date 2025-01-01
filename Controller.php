@@ -47,6 +47,7 @@ class Controller extends ControllerAdmin
      */
     public function createNotification()
     {
+        Piwik::checkUserHasSuperUserAccess();
         $enabled = trim(Request::fromRequest()->getStringParameter('enabled', 'string'));
         $title = trim(Request::fromRequest()->getStringParameter('title', 'string'));
         $message = trim(Request::fromRequest()->getStringParameter('message', 'string'));
@@ -117,10 +118,9 @@ class Controller extends ControllerAdmin
 
     public function deleteNotification()
     {
+        Piwik::checkUserHasSuperUserAccess();
         try {
-            Piwik::checkUserHasSuperUserAccess();
             $notificationId = trim(Request::fromRequest()->getStringParameter('notificationId', ''));
-
             $API = new API();
             $API->deleteNotification($notificationId);
 
@@ -134,21 +134,16 @@ class Controller extends ControllerAdmin
     public function editNotification()
     {
         Piwik::checkUserHasSuperUserAccess();
-
         $notificationId = trim(Request::fromRequest()->getStringParameter('notificationId', 'string'));
-
-        // Fetch the notification details from the database
         $db = Db::get();
         $notification = $db->fetchRow("SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE id = ?", [$notificationId]);
-
         if (empty($notification)) {
             throw new \Exception('Notification not found');
         }
 
-
         $view = new View('@RebelNotifications/editNotification');
         $this->setBasicVariablesView($view);
-        $view->assign('notification',$notification);
+        $view->assign('notification', $notification);
         $view->assign('success', true);
         $view->assign('error', false);
         $view->assign('contexts', $this->contexts());
@@ -156,16 +151,14 @@ class Controller extends ControllerAdmin
         $view->assign('priorities', $this->priorities());
 
         echo $view->render();
-
     }
 
-        /**
+    /**
      * Handle the submission of the edit form.
      */
     public function updateNotification()
     {
         Piwik::checkUserHasSuperUserAccess();
-
         $notificationId = trim(Request::fromRequest()->getStringParameter('id', 'string'));
         $enabled = trim(Request::fromRequest()->getStringParameter('enabled', 'string'));
         $title = trim(Request::fromRequest()->getStringParameter('title', 'string'));
@@ -176,7 +169,8 @@ class Controller extends ControllerAdmin
         $raw = trim(Request::fromRequest()->getStringParameter('raw', 'string'));
 
         try {
-            API::getInstance()->updateNotification($notificationId, $enabled, $title, $message, $context, $priority, $type, $raw);
+            $api = new API();
+            $api->updateNotification($notificationId, $enabled, $title, $message, $context, $priority, $type, $raw);
             $notificationList[] = 'Notification ' . $notificationId . ' updated';
             $this->index(0, $notificationList);
         } catch (\Exception $e) {

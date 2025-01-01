@@ -44,7 +44,6 @@ class API extends \Piwik\Plugin\API
                 throw $e;
             }
         }
-
     }
 
     public function deleteNotification($notificationId)
@@ -92,20 +91,20 @@ class API extends \Piwik\Plugin\API
     }
 
     public function getEnabledNotifications(): array
-{
-    Piwik::checkUserHasSuperUserAccess(); // Ensure only authorized users can access this method
+    {
+        Piwik::checkUserHasSuperUserAccess(); // Ensure only authorized users can access this method
 
-    $db = Db::get();
-    $query = "SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE `enabled` = ?";
-    $params = [1];  // Only get notifications where `enabled` is set to 1
+        $db = Db::get();
+        $query = "SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE `enabled` = ?";
+        $params = [1];  // Only get notifications where `enabled` is set to 1
 
-    try {
-        $notifications = $db->fetchAll($query, $params);
-        return $notifications;
-    } catch (\Exception $e) {
-        throw new Exception("Error fetching enabled notifications: " . $e->getMessage());
+        try {
+            $notifications = $db->fetchAll($query, $params);
+            return $notifications;
+        } catch (\Exception $e) {
+            throw new Exception("Error fetching enabled notifications: " . $e->getMessage());
+        }
     }
-}
 
     private function getDb()
     {

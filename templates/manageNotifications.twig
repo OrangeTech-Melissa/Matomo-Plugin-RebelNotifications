@@ -46,7 +46,7 @@
                         <tr>
                             <td>{{ notification.enabled }}</td>
                             <td>{{ notification.title }}</td>
-                            <td>{{ notification.message }}</td>
+                            <td>{{ notification.message | raw }}</td>
                             <td>{{ notification.context }}</td>
                             <td>{{ notification.priority }}</td>
                             <td>{{ notification.type }}</td>
