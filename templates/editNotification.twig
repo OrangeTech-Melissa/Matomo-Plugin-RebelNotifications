@@ -1,0 +1,86 @@
+{% extends 'admin.twig' %}
+{% block content %}
+    <div class="card container-fluid">
+        <div class="card-content">
+            <div class="form-group" style="margin-bottom: 2em">
+                <h2>Edit Notification</h2>
+                <form method="POST"
+                      action="{{ linkTo({"module": "RebelNotifications", "action": "updateNotification"}) }}">
+                    <input type="hidden" name="id" value="{{ notification.id }}">
+                    <div class="checkbox row">
+                        <label for="enabled">
+                            <input type="checkbox"
+                                   id="enabled"
+                                   name="enabled"
+                                   value="1"
+                                   {% if notification.enabled %}checked{% endif %}>
+                            <span>Enabled</span>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            Title:
+                            <input type="text" name="title" value="{{ notification.title }}" required>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            Message:
+                            <textarea name="message" required>{{ notification.message }}</textarea>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            Context:
+                            <select name="context">
+                                {% for context in contexts %}
+                                    <option value="{{ context }}"
+                                            {% if notification.context == context %}selected{% endif %}>
+                                        {{ context }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            Priority:
+                            <select name="priority">
+                                {% for priority in priorities %}
+                                    <option value="{{ priority }}"
+                                            {% if notification.priority == priority %}selected{% endif %}>
+                                        {{ priority }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            Type:
+                            <select name="type">
+                                {% for type in types %}
+                                    <option value="{{ type }}"
+                                            {% if notification.type == type %}selected{% endif %}>{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="checkbox row">
+                        <label for="raw">
+                            <input type="checkbox"
+                                   id="raw"
+                                   name="raw"
+                                   value="1"
+                                   {% if notification.raw %}checked{% endif %}>
+                            <span>Raw (HTML)</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Save Changes</button>
+                    <a href="{{ linkTo({"module": "RebelNotifications", "action": "index"}) }}"
+                       class="btn">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
