@@ -15,6 +15,10 @@ With RebelNotifications you can add notifications to your users, with a range of
 - Show between dates
 - Etc.
 
+## Inspiration
+
+This plugin was inspired by the [Admin Notification](https://plugins.matomo.org/AdminNotification) plugin by [Josh Brule](https://github.com/jbrule).
+
 ## Using RebelNotifications with Matomo API
 
 ### Create notification
