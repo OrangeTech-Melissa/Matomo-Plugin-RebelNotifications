@@ -90,14 +90,14 @@ class Controller extends ControllerAdmin
                 ['message' => 'success']
             );
             $notificationList[] = "Notification {$title} was created";
-            $this->index(0, $notificationList);
+            return $this->index(0, $notificationList);
         } catch (\Exception $e) {
             $this->logger()->error(
                 'Error creating notification: {message}',
                 ['message' => $e->getMessage()]
             );
             $notificationList[] = $e->getMessage();
-            $this->index(0, $notificationList);
+            return $this->index(0, $notificationList);
         }
     }
 
@@ -146,7 +146,7 @@ class Controller extends ControllerAdmin
             $API->deleteNotification($id);
 
             $notificationList[] = 'Notification ' . $id . ' deleted';
-            $this->index(0, $notificationList);
+            return $this->index(0, $notificationList);
         } catch (\Exception $e) {
             echo $e;
         }
@@ -198,7 +198,7 @@ class Controller extends ControllerAdmin
             $api = new API();
             $api->updateNotification($notificationId, $enabled, $title, $message, $context, $priority, $type, $raw);
             $notificationList[] = 'Notification ' . $notificationId . ' updated';
-            $this->index(0, $notificationList);
+            return $this->index(0, $notificationList);
         } catch (\Exception $e) {
             $notificationList[] = 'Notification ' . $notificationId . ' not updated. Error: ' . $e->getMessage();
             $this->index(0, $notificationList);
