@@ -58,7 +58,7 @@ class Controller extends ControllerAdmin
         $view->assign('priorities', $this->priorities());
         $view->assign('notificationList', $notificationList);
 
-        echo $view->render();
+        return $view->render();
     }
 
     /**
@@ -135,11 +135,13 @@ class Controller extends ControllerAdmin
         ];
     }
 
-    public function deleteNotification()
+    public function deleteNotification($id = null)
     {
         Piwik::checkUserHasSuperUserAccess();
         try {
-            $id = trim(Request::fromRequest()->getStringParameter('id', ''));
+            if (!isset($id)) {
+                $id = trim(Request::fromRequest()->getStringParameter('id', ''));
+            }
             $API = new API();
             $API->deleteNotification($id);
 
@@ -150,10 +152,15 @@ class Controller extends ControllerAdmin
         }
     }
 
-    public function editNotification()
+    public function editNotification($id = null)
     {
         Piwik::checkUserHasSuperUserAccess();
-        $notificationId = trim(Request::fromRequest()->getStringParameter('notificationId', 'string'));
+        if (!isset($id)) {
+            $notificationId = trim(Request::fromRequest()->getStringParameter('notificationId', 'string'));
+        } else {
+            $notificationId = $id;
+        }
+
         $db = Db::get();
         $notification = $db->fetchRow("SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE id = ?", [$notificationId]);
         if (empty($notification)) {
@@ -169,7 +176,7 @@ class Controller extends ControllerAdmin
         $view->assign('types', $this->types());
         $view->assign('priorities', $this->priorities());
 
-        echo $view->render();
+        return $view->render();
     }
 
     /**
