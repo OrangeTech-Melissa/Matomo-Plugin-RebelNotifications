@@ -27,6 +27,17 @@ Rebel Notifications are using the built in Notifications in Matomo and adds a UI
 
 This plugin was inspired by the [Admin Notification](https://plugins.matomo.org/AdminNotification) plugin by [Josh Brule](https://github.com/jbrule).
 
+## Installation
+
+Install the plugin as you normally install any Matomo plugin.
+
+## Usage
+
+After installation, a new menu item is visible in the admin part of Matomo - "Rebel Notifications".
+At "Manage" you can add, edit and delete notifications.
+
+When you add or change a notification, nothing is changed until you logout and login. The triggering event for the notifications is `Login.authenticate.successful` - which means that nothing updates until you login.
+
 ## Using RebelNotifications with Matomo API
 
 Examples with curl.
