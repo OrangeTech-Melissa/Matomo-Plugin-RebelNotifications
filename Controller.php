@@ -139,11 +139,11 @@ class Controller extends ControllerAdmin
     {
         Piwik::checkUserHasSuperUserAccess();
         try {
-            $notificationId = trim(Request::fromRequest()->getStringParameter('notificationId', ''));
+            $id = trim(Request::fromRequest()->getStringParameter('id', ''));
             $API = new API();
-            $API->deleteNotification($notificationId);
+            $API->deleteNotification($id);
 
-            $notificationList[] = 'Notification ' . $notificationId . ' deleted';
+            $notificationList[] = 'Notification ' . $id . ' deleted';
             $this->index(0, $notificationList);
         } catch (\Exception $e) {
             echo $e;

@@ -1,29 +1,22 @@
 {
     "name": "RebelNotifications",
-    "description": "Show Matomo Notfications to your users.",
+    "description": "Show Notifications to your users.",
     "version": "0.1.0",
     "theme": false,
     "require": {
-        "matomo": ">=5.2.1-stable,<6.0.0-b1"
+        "matomo": ">=5.0.0,<6.0.0-b1"
     },
     "authors": [
         {
-            "name": "Matomo",
-            "email": "",
-            "homepage": ""
+            "name": "Digitalist Open Cloud",
+            "email": "cloud@digitalist.com",
+            "homepage": "https://digitalist.cloud"
         }
     ],
     "support": {
-        "email": "",
-        "issues": "",
-        "forum": "",
-        "irc": "",
-        "wiki": "",
-        "source": "",
-        "docs": "",
-        "rss": ""
+        "issues": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/issues"
     },
-    "homepage": "",
+    "homepage": "https://digitalist.cloud",
     "license": "GPL v3+",
-    "keywords": []
+    "keywords": ["Notifications"]
 }

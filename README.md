@@ -1,19 +1,21 @@
-# Matomo RebelNotifications Plugin
+# Matomo Rebel Notifications Plugin
 
-With an API-first approach with RebelNotifications you could easily automate notifications in your Matomo-instances. You could also display many Notifications at once, use HTML with notifications, etc.
+With an API-first approach with Rebel Notifications you could easily automate notifications in your Matomo-instances. You could also display many notifications at once, use HTML with notifications, etc.
 
 ## What is Rebel?
 
-RebelMetrics is Matomo on super charged batteries from Digitalist Open Cloud. Please contact us if you are interested for a free month of our RebelMetrics - we offer this to organizations and companies.
+Rebel is short for RebelMetrics. RebelMetrics is Matomo on super charged batteries from Digitalist Open Cloud, with preconfigured dashboards, SQL-lab and more. We offer 1 month free trial for organizations and companies. If you are interested, email us at <cloud@digitalist.com> to book a demo.
 
 ## Description
 
-With RebelNotifications you can add notifications to your users, with a range of settings:
+With Rebel Notifications you can add notifications to your users, with a range of settings:
 
 - Type of notification
+- Use HTML (links, images etc.)
 - Priority
-- Show between dates
 - Etc.
+
+Rebel Notifications are using the built in Notifications in Matomo and adds a UI to it to create custom notifications.
 
 ## Inspiration
 
@@ -21,11 +23,83 @@ This plugin was inspired by the [Admin Notification](https://plugins.matomo.org/
 
 ## Using RebelNotifications with Matomo API
 
-### Create notification
+Examples with curl.
 
-### Edit notification
+### Create a notification
 
-### Delete notification
+```sh
+curl -X POST "https://MATOMO.URL/index.php" \
+     -d "module=API" \
+     -d "method=RebelNotifications.insertNotification" \
+     -d "enabled=1" \
+     -d "title=bar" \
+     -d "message=foo is bar" \
+     -d "context=warning" \
+     -d "priority=25" \
+     -d "type=persistent" \
+     -d "raw=0" \
+     -d "token_auth=A_SECURE_TOKEN" \
+     -d "format=JSON"
+```
+
+### Edit a notification
+
+```sh
+curl -X POST "https://MATOMO.URL/index.php" \
+     -d "module=API" \
+     -d "method=RebelNotifications.updateNotification" \
+     -d "id=24" \
+     -d "enabled=1" \
+     -d "title=bar" \
+     -d "message=Changing the message" \
+     -d "context=warning" \
+     -d "priority=25" \
+     -d "type=persistent" \
+     -d "raw=0" \
+     -d "token_auth=A_SECURE_TOKEN" \
+     -d "format=JSON"
+```
+
+### Delete a notification
+
+```sh
+curl -X POST "https://MATOMO.URL/index.php" \
+     -d "module=API" \
+     -d "method=RebelNotifications.deleteNotification" \
+     -d "id=24" \
+     -d "token_auth=A_SECURE_TOKEN" \
+     -d "format=JSON"
+```
+
+### List enabled notifications
+
+```sh
+curl -X POST "https://MATOMO.URL/index.php" \
+     -d "module=API" \
+     -d "method=RebelNotifications.getEnabledNotifications" \
+     -d "token_auth=A_SECURE_TOKEN" \
+     -d "format=JSON"
+```
+
+### List disabled notifications
+
+```sh
+curl -X POST "https://MATOMO.URL/index.php" \
+     -d "module=API" \
+     -d "method=RebelNotifications.getDisabledNotifications" \
+     -d "token_auth=A_SECURE_TOKEN" \
+     -d "format=JSON"
+```
+
+### List all notifications
+
+```sh
+curl -X POST "https://MATOMO.URL/index.php" \
+     -d "module=API" \
+     -d "method=RebelNotifications.getAllNotifications" \
+     -d "token_auth=A_SECURE_TOKEN" \
+     -d "format=JSON"
+```
 
 ## License
 

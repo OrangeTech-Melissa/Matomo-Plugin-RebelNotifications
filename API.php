@@ -27,7 +27,8 @@ use Piwik\Db;
 use Exception;
 
 /**
- * API for plugin RebelNotifications
+ * API for plugin RebelNotifications. With this you can handle notifications to
+ * your users of Matomo through the API. Delete, Update, Edit etc.
  *
  * @method static \Piwik\Plugins\RebelNotifications\API getInstance()
  */
@@ -58,7 +59,7 @@ class API extends \Piwik\Plugin\API
         }
     }
 
-    public function deleteNotification($notificationId)
+    public function deleteNotification($id)
     {
         Piwik::checkUserHasSuperUserAccess();
         try {
@@ -67,7 +68,7 @@ class API extends \Piwik\Plugin\API
                 "DELETE FROM `" .
                 Common::prefixTable('rebel_notifications') .
                 "` WHERE `id` = ?",
-                [$notificationId]
+                [$id]
             );
             return true;
         } catch (\Exception $e) {
@@ -112,6 +113,37 @@ class API extends \Piwik\Plugin\API
 
         try {
             $notifications = $db->fetchAll($query, $params);
+            return $notifications;
+        } catch (\Exception $e) {
+            throw new Exception("Error fetching enabled notifications: " . $e->getMessage());
+        }
+    }
+
+    public function getDisabledNotifications(): array
+    {
+        Piwik::checkUserHasSuperUserAccess(); // Ensure only authorized users can access this method
+
+        $db = Db::get();
+        $query = "SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE `enabled` = ?";
+        $params = [0];  // Only get notifications where `enabled` is set to 1
+
+        try {
+            $notifications = $db->fetchAll($query, $params);
+            return $notifications;
+        } catch (\Exception $e) {
+            throw new Exception("Error fetching enabled notifications: " . $e->getMessage());
+        }
+    }
+
+    public function getAllNotifications(): array
+    {
+        Piwik::checkUserHasSuperUserAccess(); // Ensure only authorized users can access this method
+
+        $db = Db::get();
+        $query = "SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "`";
+
+        try {
+            $notifications = $db->fetchAll($query);
             return $notifications;
         } catch (\Exception $e) {
             throw new Exception("Error fetching enabled notifications: " . $e->getMessage());
