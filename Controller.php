@@ -156,13 +156,11 @@ class Controller extends ControllerAdmin
     {
         Piwik::checkUserHasSuperUserAccess();
         if (!isset($id)) {
-            $notificationId = trim(Request::fromRequest()->getStringParameter('notificationId', 'string'));
-        } else {
-            $notificationId = $id;
+            $id = trim(Request::fromRequest()->getStringParameter('id', 'string'));
         }
 
         $db = Db::get();
-        $notification = $db->fetchRow("SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE id = ?", [$notificationId]);
+        $notification = $db->fetchRow("SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "` WHERE id = ?", [$id]);
         if (empty($notification)) {
             throw new \Exception('Notification not found');
         }

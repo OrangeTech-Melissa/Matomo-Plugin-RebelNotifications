@@ -43,7 +43,7 @@ class Menu extends \Piwik\Plugin\Menu
             );
             $menu->addItem(
                 'RebelNotifications_RebelNotifications',
-                'RebelNotifications_RebelNotifications',
+                'RebelNotifications_Manage',
                 $this->urlForAction('index'),
                 $order = 43
             );
