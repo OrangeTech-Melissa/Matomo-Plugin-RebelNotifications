@@ -4,19 +4,21 @@
     "version": "0.1.0",
     "theme": false,
     "require": {
-        "matomo": ">=5.0.0,<6.0.0-b1"
+        "matomo": ">=5.0.0-stable,<6.0.0-b1"
     },
     "authors": [
         {
             "name": "Digitalist Open Cloud",
             "email": "cloud@digitalist.com",
-            "homepage": "https://digitalist.cloud"
+            "homepage": "https:\/\/digitalist.cloud"
         }
     ],
     "support": {
-        "issues": "https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/issues"
+        "issues": "https:\/\/github.com\/Digitalist-Open-Cloud\/Matomo-Plugin-RebelNotifications\/issues"
     },
-    "homepage": "https://digitalist.cloud",
+    "homepage": "https:\/\/digitalist.cloud",
     "license": "GPL v3+",
-    "keywords": ["Notifications"]
+    "keywords": [
+        "Notifications"
+    ]
 }

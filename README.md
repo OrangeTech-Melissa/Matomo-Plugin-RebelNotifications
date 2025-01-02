@@ -6,9 +6,11 @@ With an API-first approach with Rebel Notifications you could easily automate no
 
 ![matomo plugin tests](https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/actions/workflows/matomo.yaml/badge.svg) ![semgrep oss scan](https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/actions/workflows/semgrep.yaml/badge.svg) ![phpcs](https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/actions/workflows/phpcs.yaml/badge.svg)
 
+"Test plugin with Matomo" is done with the fork [Matomo GitHub Action Tests](https://github.com/Digitalist-Open-Cloud/Matomo-github-action-tests), which tests the plugin with Integration-tests against the least (8.2) and highest (8.4) supported PHP-version together with the least (5.0.0) and highest available version of Matomo.
+
 ## What is Rebel?
 
-Rebel is short for RebelMetrics. RebelMetrics is Matomo on super charged batteries from Digitalist Open Cloud, with preconfigured dashboards, SQL-lab and more. We offer 1 month free trial for organizations and companies. If you are interested, email us at <cloud@digitalist.com> to book a demo.
+Rebel is short for RebelMetrics. RebelMetrics is Matomo on super charged batteries from Digitalist Open Cloud, with pre-configured dashboards, SQL-lab and more. We offer 1 month free trial for organizations and companies. If you are interested, email us at <cloud@digitalist.com> to book a demo.
 
 ## Description
 
