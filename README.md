@@ -2,6 +2,10 @@
 
 With an API-first approach with Rebel Notifications you could easily automate notifications in your Matomo-instances. You could also display many notifications at once, use HTML with notifications, etc.
 
+## Status for tests
+
+![matomo plugin tests](https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/actions/workflows/matomo.yaml/badge.svg) ![semgrep oss scan](https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/actions/workflows/semgrep.yaml/badge.svg) ![phpcs](https://github.com/Digitalist-Open-Cloud/Matomo-Plugin-RebelNotifications/actions/workflows/phpcs.yaml/badge.svg)
+
 ## What is Rebel?
 
 Rebel is short for RebelMetrics. RebelMetrics is Matomo on super charged batteries from Digitalist Open Cloud, with preconfigured dashboards, SQL-lab and more. We offer 1 month free trial for organizations and companies. If you are interested, email us at <cloud@digitalist.com> to book a demo.
