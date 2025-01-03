@@ -13,7 +13,6 @@ use Piwik\Plugins\RebelNotifications\API;
  */
 class CommandsTest extends ConsoleCommandTestCase
 {
-
     /**
      * @var API
      */
@@ -77,8 +76,8 @@ class CommandsTest extends ConsoleCommandTestCase
 
     public function testListEnabledNotifications()
     {
-       $this->api->insertNotification('1', 'this should show', 'bar', 'warning', '25', 'persistent', '0');
-       $this->api->insertNotification('0', 'this should not show', 'bar', 'warning', '25', 'persistent', '0');
+        $this->api->insertNotification('1', 'this should show', 'bar', 'warning', '25', 'persistent', '0');
+        $this->api->insertNotification('0', 'this should not show', 'bar', 'warning', '25', 'persistent', '0');
         $code = $this->applicationTester->run([
             'command' => 'rebelnotifications:list',
             '--enabled' => true,
@@ -90,14 +89,14 @@ class CommandsTest extends ConsoleCommandTestCase
             $this->applicationTester->getDisplay()
         );
         $this->assertStringNotContainsStringIgnoringCase(
-          "this should not show",
-          $this->applicationTester->getDisplay()
+            "this should not show",
+            $this->applicationTester->getDisplay()
         );
     }
 
     public function testListAllNotifications()
     {
-       $this->api->insertNotification('0', 'this one is disabled', 'bar', 'warning', '25', 'persistent', '0');
+        $this->api->insertNotification('0', 'this one is disabled', 'bar', 'warning', '25', 'persistent', '0');
         $code = $this->applicationTester->run([
             'command' => 'rebelnotifications:list',
         ]);
@@ -108,5 +107,4 @@ class CommandsTest extends ConsoleCommandTestCase
             $this->applicationTester->getDisplay()
         );
     }
-
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.4] - 2025-01-03
+
+### Added
+
+- Console commands to create and list notifications.
+- Improved usability on the manage page for notifications.
+
 ## [5.0.3] - 2025-01-02
 
 ### Added
