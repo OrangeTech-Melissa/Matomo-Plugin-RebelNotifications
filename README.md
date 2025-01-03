@@ -43,8 +43,22 @@ When you add or change a notification, nothing is changed until you logout and l
 ### Create a notification
 
 ```sh
-./console rebelnotifications:create-notification --raw --enabled --title="My title" --me
+./console rebelnotifications:create --raw --enabled --title="My title" --me
 ssage="This is the message in <strong>bold</strong>" --context=warning --priority=50 --type=persistent
+```
+
+### List notifications
+
+#### All notifications
+
+```sh
+./console rebelnotifications:list
+```
+
+#### Enabled notifications
+
+```sh
+./console rebelnotifications:list --enabled
 ```
 
 ## Using RebelNotifications with Matomo API
