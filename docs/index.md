@@ -38,6 +38,29 @@ At "Manage" you can add, edit and delete notifications.
 
 When you add or change a notification, nothing is changed until you logout and login. The triggering event for the notifications is `Login.authenticate.successful` - which means that nothing updates until you login.
 
+## Using Rebel Notifications with the console
+
+### Create a notification
+
+```sh
+./console rebelnotifications:create --raw --enabled --title="My title" --me
+ssage="This is the message in <strong>bold</strong>" --context=warning --priority=50 --type=persistent
+```
+
+### List notifications
+
+#### All notifications
+
+```sh
+./console rebelnotifications:list
+```
+
+#### Enabled notifications
+
+```sh
+./console rebelnotifications:list --enabled
+```
+
 ## Using RebelNotifications with Matomo API
 
 Examples with curl.

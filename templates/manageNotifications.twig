@@ -44,7 +44,12 @@
                 <tbody>
                     {% for notification in messages %}
                         <tr>
-                            <td>{{ notification.enabled }}</td>
+                            <td>{% if notification.enabled == "1" %}
+                                <span class="icon-show" title="Enabled"></span>
+                            {% elseif notification.enabled == "0" %}
+                                <span class="icon-hide" title="Disabled"></span>
+                            {% endif %}
+                           </td>
                             <td>{{ notification.title }}</td>
                             <td>{{ notification.message | raw }}</td>
                             <td>{{ notification.context }}</td>
@@ -52,11 +57,11 @@
                             <td>{{ notification.type }}</td>
                             <td>{{ notification.raw }}</td>
                             <td>
-                                <a href="{{ linkTo({'module':'RebelNotifications','action':'editNotification', 'id': notification.id}) }}">
+                                <a href="{{ linkTo({'module':'RebelNotifications','action':'editNotification', 'id': notification.id}) }}" title="Edit notification">
                                     <span class="icon-edit"></span>
                                 </a>
                             </td>
-                            <td><a href='{{ linkTo({'module':'RebelNotifications','action':'deleteNotification', 'id': notification.id}) }}'><span class="icon-delete"></span></a></td>
+                            <td><a href='{{ linkTo({'module':'RebelNotifications','action':'deleteNotification', 'id': notification.id}) }}' title="Delete notification"><span class="icon-delete"></span></a></td>
                         </tr>
                     {% else %}
                         <tr>

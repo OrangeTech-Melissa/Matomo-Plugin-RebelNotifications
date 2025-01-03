@@ -44,7 +44,7 @@ class CreateNotification extends ConsoleCommand
         To run:
         <info>%command.name%</info>';
                 $this->setHelp($HelpText);
-                $this->setName('rebelnotifications:create-notification');
+                $this->setName('rebelnotifications:create');
                 $this->setDescription('CreateNotification');
                 $this->addNoValueOption(
                     'enabled',
@@ -100,54 +100,38 @@ class CreateNotification extends ConsoleCommand
     {
         $input = $this->getInput();
         $output = $this->getOutput();
-
-        // Retrieve and check 'active' option
         if (!$input->hasOption('enabled') || $input->getOption('enabled') === null) {
             $enabled = 0;
         } else {
             $enabled = 1;
         }
-
-        // Retrieve and check 'raw' option
         if (!$input->hasOption('raw') || $input->getOption('raw') === null) {
             $raw = 0;
         } else {
             $raw = 1;
         }
-
-        // Retrieve and check 'type' option
         if (!$input->hasOption('type') || $input->getOption('type') === null) {
             throw new \InvalidArgumentException("The 'type' option is required.");
         }
         $type = $input->getOption('type');
-
-        // Retrieve and check 'title' option
         if (!$input->hasOption('title') || $input->getOption('title') === null) {
             throw new \InvalidArgumentException("The 'title' option is required.");
         }
         $title = $input->getOption('title');
-
-        // Retrieve and check 'message' option
         if (!$input->hasOption('message') || $input->getOption('message') === null) {
             throw new \InvalidArgumentException("The 'message' option is required.");
         }
         $message = $input->getOption('message');
-
-        // Retrieve and check 'context' option
         if (!$input->hasOption('context') || $input->getOption('context') === null) {
             throw new \InvalidArgumentException("The 'context' option is required.");
         }
         $context = $input->getOption('context');
-
-        // Retrieve and check 'priority' option
         if (!$input->hasOption('priority') || $input->getOption('priority') === null) {
             throw new \InvalidArgumentException("The 'priority' option is required.");
         }
         $priority = $input->getOption('priority');
-
-        $api = new API;
+        $api = new API();
         $addNotification = $api->insertNotification($enabled, $title, $message, $context, $priority, $type, $raw);
-
         $message = sprintf('<info>Created notification: %s</info>', $title);
 
         $output->writeln($message);
