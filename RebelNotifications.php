@@ -34,7 +34,8 @@ class RebelNotifications extends \Piwik\Plugin
     public function registerEvents()
     {
         return [
-            'Login.authenticate.successful' => 'getNotifications'
+            'Login.authenticate.successful' => 'getNotifications',
+            'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
         ];
     }
 
@@ -53,6 +54,11 @@ class RebelNotifications extends \Piwik\Plugin
 
             Notification\Manager::notify('RebelNotifications_' . $notificationData['id'], $notification);
         }
+    }
+
+    public function getStylesheetFiles(&$stylesheets)
+    {
+        $stylesheets[] = "plugins/RebelNotifications/stylesheets/rebel.less";
     }
 
     public function install()

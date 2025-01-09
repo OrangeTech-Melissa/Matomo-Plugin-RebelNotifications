@@ -3,7 +3,7 @@
     <div class="card container-fluid">
         <div class="card-content">
             <div class="form-group" style="margin-bottom: 2em">
-                <h2>Edit Notification</h2>
+                <h2>{{ 'RebelNotifications_EditNotification'|translate }}</h2>
                 <form method="POST"
                       action="{{ linkTo({"module": "RebelNotifications", "action": "updateNotification"}) }}">
                     <input type="hidden" name="id" value="{{ notification.id }}">
