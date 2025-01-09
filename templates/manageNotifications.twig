@@ -1,21 +1,12 @@
 {% extends 'admin.twig' %}
 {% block content %}
-    <style type="text/css">
-    table.dataTable thead tr th:not(.label) {
-        text-align: left;
-    }
-    </style>
     {% import 'macros.twig' as piwik %}
 
     {% if notifications is not empty and notifications|length %}
         {% for notificationId, n in notifications %}
-
             {{ n.message|notification({'id': notificationId, 'type': n.type, 'title': n.title, 'noclear': n.hasNoClear, 'context': n.context, 'raw': n.raw}, false) }}
-
         {% endfor %}
     {% endif %}
-
-
     {% if notificationList|length >= 1 %}
     <div id="messages" class="alert">
        {% for notification in notificationList %}
@@ -25,29 +16,29 @@
     {% endif %}
     <div class="card container-fluid">
         <div class="card-content">
-            <h2>Manage Notifications</h2>
-            <h3>Existing Notifications</h3>
+            <h2>{{ 'RebelNotifications_ManageNotifications'|translate }}</h2>
+            <h3>{{ 'RebelNotifications_ExistingNotifications'|translate }}</h3>
             <table class="dataTable table table-striped">
                 <thead>
                     <tr>
-                        <th>Enabled</th>
-                        <th>Title</th>
-                        <th>Message</th>
-                        <th>Context</th>
-                        <th>Priority</th>
-                        <th>Type</th>
-                        <th>Raw</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>{{ 'RebelNotifications_Enabled'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Title'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Message'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Context'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Priority'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Type'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Raw'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Edit'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Delete'|translate }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for notification in messages %}
                         <tr>
                             <td>{% if notification.enabled == "1" %}
-                                <span class="icon-show" title="Enabled"></span>
+                                <span class="icon-show" title="{{ 'RebelNotifications_Enabled'|translate }}"></span>
                             {% elseif notification.enabled == "0" %}
-                                <span class="icon-hide" title="Disabled"></span>
+                                <span class="icon-hide" title="{{ 'RebelNotifications_Disabled'|translate }}"></span>
                             {% endif %}
                            </td>
                             <td>{{ notification.title }}</td>
@@ -57,44 +48,44 @@
                             <td>{{ notification.type }}</td>
                             <td>{{ notification.raw }}</td>
                             <td>
-                                <a href="{{ linkTo({'module':'RebelNotifications','action':'editNotification', 'id': notification.id}) }}" title="Edit notification">
+                                <a href="{{ linkTo({'module':'RebelNotifications','action':'editNotification', 'id': notification.id}) }}" title="{{ 'RebelNotifications_EditNotification'|translate }}">
                                     <span class="icon-edit"></span>
                                 </a>
                             </td>
-                            <td><a href='{{ linkTo({'module':'RebelNotifications','action':'deleteNotification', 'id': notification.id}) }}' title="Delete notification"><span class="icon-delete"></span></a></td>
+                            <td><a href='{{ linkTo({'module':'RebelNotifications','action':'deleteNotification', 'id': notification.id}) }}' title="{{ 'RebelNotifications_DeleteNotification'|translate }}"><span class="icon-delete"></span></a></td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="7">No notifications found.</td>
+                            <td colspan="7">{{ 'RebelNotifications_NoNotificationsFound'|translate }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="form-group" style="margin-bottom: 2em">
-                <h3>Create New Notification</h3>
+            <div class="form-group" class="rebel-margin">
+                <h3>{{ 'RebelNotifications_CreateNewNotification'|translate }}</h3>
                 <form method="POST"
                       action="{{ linkTo({"module": "RebelNotifications", "action": "createNotification"}) }}">
                     <div class="checkbox row">
                         <label for="enabled">
                             <input type="checkbox" id="enabled" name="enabled" value="1" checked>
-                            <span>Enabled</span>
+                            <span>{{ 'RebelNotifications_Enabled'|translate }}</span>
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                            Title:
+                            {{ 'RebelNotifications_Title'|translate }}
                             <input type="text" name="title" required>
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                            Message:
+                            {{ 'RebelNotifications_Message'|translate }}
                             <textarea name="message" class="materialize-textarea" required></textarea>
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                            Context:
+                            {{ 'RebelNotifications_Context'|translate }}
                             <select name="context" id="context" class="select-dropdown dropdown-trigger">
                                 {% for context in contexts %}<option value="{{ context }}">{{ context }}</option>{% endfor %}
                             </select>
@@ -102,7 +93,7 @@
                     </div>
                     <div class="row">
                         <label>
-                            Priority:
+                            {{ 'RebelNotifications_Priority'|translate }}
                             <select name="priority"
                                     id="priority"
                                     class="select-dropdown dropdown-trigger">
@@ -112,7 +103,7 @@
                     </div>
                     <div class="row">
                         <label>
-                            Type:
+                            {{ 'RebelNotifications_Type'|translate }}
                             <div class="matomo-field-select">
                                 <select name="type" id="type" class="select-dropdown dropdown-trigger">
                                     {% for type in types %}<option value="{{ type }}">{{ type }}</option>{% endfor %}
@@ -123,11 +114,11 @@
                     <div class="checkbox row">
                         <label for="raw">
                             <input type="checkbox" id="raw" name="raw" value="1">
-                            <span>Raw (HTML)</span>
+                            <span>{{ 'RebelNotifications_RawHTML'|translate }}</span>
                         </label>
                     </div>
                     <div class="row">
-                        <button type="submit" class="btn">Create Notification</button>
+                        <button type="submit" class="btn">{{ 'RebelNotifications_CreateNotification'|translate }}</button>
                     </div>
                 </form>
             </div>

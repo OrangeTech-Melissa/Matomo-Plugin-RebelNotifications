@@ -1,6 +1,24 @@
 {
   "RebelNotifications": {
+      "Context": "Context",
+      "CreateNewNotification": "Create New Notification",
+      "CreateNotification": "Create Notification",
+      "Delete": "Delete",
+      "DeleteNotification": "Delete Notification",
+      "Disabled": "Disabled",
+      "Edit": "Edit",
+      "EditNotification": "Edit Notification",
+      "Enabled": "Enabled",
+      "ExistingNotifications": "Existing Notifications",
+      "Manage": "Manage",
+      "ManageNotifications": "Manage Notifications",
+      "Message": "Message",
+      "NoNotificationsFound": "No notifications found.",
+      "Priority": "Priority",
+      "Raw": "Raw",
+      "RawHTML": "Raw (HTML)",
       "RebelNotifications": "Rebel Notifications",
-      "Manage": "Manage"
+      "Title": "Title",
+      "Type": "Type"
   }
 }

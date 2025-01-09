@@ -1,0 +1,24 @@
+{
+  "RebelNotifications": {
+    "Context": "Kontext",
+    "CreateNewNotification": "Skapa ny notifiering",
+    "CreateNotification": "Skapa notifiering",
+    "Delete": "Ta bort",
+    "DeleteNotification": "Ta bort notifiering",
+    "Disabled": "Inaktiverad",
+    "Edit": "Redigera",
+    "EditNotification": "Redigera notifiering",
+    "Enabled": "Aktiverad",
+    "ExistingNotifications": "Befintliga notifieringar",
+    "Manage": "Hantera",
+    "ManageNotifications": "Hantera notifieringar",
+    "Message": "Meddelande",
+    "NoNotificationsFound": "Inga notifieringar hittades.",
+    "Priority": "Prioritet",
+    "Raw": "Rå",
+    "RawHTML": "Rå (HTML)",
+    "RebelNotifications": "Rebel Notifications",
+    "Title": "Titel",
+    "Type": "Typ"
+  }
+}
