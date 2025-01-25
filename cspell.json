@@ -1,0 +1,26 @@
+{
+    "version": "0.2",
+    "ignorePaths": [
+        "**/images/**",
+        "**/tests/phpcs.xml"
+    ],
+    "dictionaryDefinitions": [
+        {
+            "name": "dictionary",
+            "path": "./.cspell/dictionary",
+            "addWords": true
+        }
+    ],
+    "dictionaries": [
+        "dictionary",
+        "html",
+        "typescript",
+        "javascript",
+        "php",
+        "twig"
+      ],
+    "words": [],
+    "ignoreWords": [],
+    "language": "en,en-GB,sv,fr-fr",
+    "useGitignore": true
+}

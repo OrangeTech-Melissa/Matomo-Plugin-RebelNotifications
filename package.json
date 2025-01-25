@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@cspell/dict-fr-fr": "^2.2.5",
+    "@cspell/dict-sv": "^2.2.3",
+    "cspell": "^8.17.2"
+  }
+}
