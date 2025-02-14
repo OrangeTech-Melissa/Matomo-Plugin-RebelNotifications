@@ -36,18 +36,18 @@ class API extends \Piwik\Plugin\API
 {
     public function insertNotification(
         string $enabled,
+        string $public,
         string $title,
         string $message,
         string $context,
         string $priority,
         string $type,
-        string $raw,
-        string $siteIds
+        string $raw
     ): void {
         Piwik::checkUserHasSuperUserAccess();
         $query = "INSERT INTO `" . Common::prefixTable('rebel_notifications') . "`
-            (enabled, title, message, context, priority, type, raw, site_ids) VALUES (?,?,?,?,?,?,?,?)";
-        $params = [$enabled, $title, $message, $context, $priority, $type, $raw, $siteIds];
+            (enabled, public, title, message, context, priority, type, raw) VALUES (?,?,?,?,?,?,?,?)";
+        $params = [$enabled, $public, $title, $message, $context, $priority, $type, $raw];
 
         $db = $this->getDb();
 
@@ -81,20 +81,20 @@ class API extends \Piwik\Plugin\API
     public function updateNotification(
         string $id,
         string $enabled,
+        string $public,
         string $title,
         string $message,
         string $context,
         string $priority,
         string $type,
-        string $raw,
-        string $siteIds
+        string $raw
     ): void {
         Piwik::checkUserHasSuperUserAccess();
 
         $query = "UPDATE `" . Common::prefixTable('rebel_notifications') . "`
-                  SET enabled = ?, title = ?, message = ?, context = ?, priority = ?, type = ?, raw = ?, site_ids = ?
+                  SET enabled = ?, public = ?, title = ?, message = ?, context = ?, priority = ?, type = ?, raw = ?
                   WHERE id = ?";
-        $params = [$enabled, $title, $message, $context, $priority, $type, $raw, $siteIds, $id];
+        $params = [$enabled, $public, $title, $message, $context, $priority, $type, $raw, $id];
 
         $db = $this->getDb();
 
@@ -134,6 +134,24 @@ class API extends \Piwik\Plugin\API
             return $notifications;
         } catch (\Exception $e) {
             throw new Exception("Error fetching enabled notifications: " . $e->getMessage());
+        }
+    }
+
+    public function getPublicSiteIds(): array
+    {
+        Piwik::checkUserHasSuperUserAccess(); // Ensure only authorized users can access this method
+
+        $db = Db::get();
+        $siteIdsWithAnonymousAccess = [];
+
+        // Query to retrieve site IDs where login is 'anonymous'
+        $query = "SELECT DISTINCT idsite FROM " . Common::prefixTable('access') . " WHERE login = 'anonymous'";
+        
+        try {
+            $siteIdsWithAnonymousAccess = $db->fetchCol($query);
+            return $siteIdsWithAnonymousAccess; // Return the list of site IDs
+        } catch (\Exception $e) {
+            throw new Exception("Error fetching public site IDs: " . $e->getMessage());
         }
     }
 

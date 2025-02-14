@@ -20,6 +20,7 @@
     "RebelNotifications": "Rebel Notifications",
     "Title": "Titre",
     "Type": "Type",
-    "SiteIDs": "IDs de site"
+    "Public": "Publique",
+    "NotPublic": "Non Publique"
   }
 }

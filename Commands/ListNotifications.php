@@ -52,6 +52,12 @@ class ListNotifications extends ConsoleCommand
                     'Set to enabled',
                     null
                 );
+                $this->addNoValueOption(
+                    'public',
+                    null,
+                    'Display only for public sites',
+                    null
+                );
     }
 
     protected function doExecute(): int
@@ -61,11 +67,8 @@ class ListNotifications extends ConsoleCommand
         $enabled = $input->getOption('enabled') ? true : false;
 
         $api = new API();
-        if ($enabled === false) {
-            $listNotifications = $api->getAllNotifications();
-        } else {
-            $listNotifications = $api->getEnabledNotifications();
-        }
+
+        $listNotifications = $enabled ? $api->getEnabledNotifications() : $api->getAllNotifications();
 
         foreach ($listNotifications as $notification) {
             if ($notification['enabled'] == 1) {
@@ -75,15 +78,19 @@ class ListNotifications extends ConsoleCommand
                 $raw = 'yes';
             }
 
+            if ($notification['public'] == 1) {
+                $public = 'yes';
+            }
+
             $out = "ID: <comment>{$notification['id']}</comment>\n";
             $out .= "Enabled: <comment>{$enabled}</comment>\n";
+            $out .= "Public: <comment>{$public}</comment>\n";
             $out .= "Title: <comment>{$notification['title']}</comment>\n";
             $out .= "Message: <comment>{$notification['message']}</comment>\n";
             $out .= "Context: <comment>{$notification['context']}</comment>\n";
             $out .= "Priority: <comment>{$notification['priority']}</comment>\n";
             $out .= "Type: <comment>{$notification['type']}</comment>\n";
             $out .= "Raw (HTML allowed): <comment>{$raw}</comment>\n";
-            $out .= "Site IDs: <comment>{$notification['site_ids']}</comment>\n";
             $out .= "-----------------------------------";
             $output->writeln("<info>$out</info>");
         }

@@ -46,6 +46,7 @@ class RebelNotifications extends \Piwik\Plugin
         $enabledNotifications = $this->getEnabledNotifications();
         foreach ($enabledNotifications as $notificationData) {
             $notification = new Notification($notificationData['message']);
+            $notification->public = $notificationData['public'];
             $notification->title = $notificationData['title'];
             $notification->context = $notificationData['context'];
             $notification->priority = $notificationData['priority'];
@@ -67,6 +68,7 @@ class RebelNotifications extends \Piwik\Plugin
         $query = "CREATE TABLE " . Common::prefixTable('rebel_notifications') . " (
             `id` int(24) NOT NULL AUTO_INCREMENT,
             `enabled` int NOT NULL,
+            `public` int NOT NULL,
             `title` varchar(255) NOT NULL,
             `message` text,
             `context` varchar(128) NOT NULL,
@@ -74,7 +76,6 @@ class RebelNotifications extends \Piwik\Plugin
             `type` varchar(128) NOT NULL,
             `raw` int NOT NULL,
             `flags` varchar(255),
-            `site_ids` varchar(255) NOT NULL DEFAULT '',
             `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`)
             )

@@ -44,13 +44,22 @@ class Controller extends ControllerAdmin
             $request = Request::fromRequest();
             $siteID = $request->getIntegerParameter('idSite', 0);
         }
+
+        $currentSiteId = $siteID;
+
         $db = Db::get();
         $query = "SELECT * FROM `" . Common::prefixTable('rebel_notifications') . "`";
         $notifications = $db->fetchAll($query);
 
+        $publicSiteIds = API::getInstance()->getPublicSiteIds();
+
+        $filteredNotifications = array_filter($notifications, function($notification) use ($currentSiteId, $publicSiteIds) {
+            return $notification['public'] == 1 && in_array($currentSiteId, $publicSiteIds);
+        });
+
         $view = new View('@RebelNotifications/manageNotifications');
         $this->setBasicVariablesView($view);
-        $view->assign('messages', $notifications);
+        $view->assign('messages', $filteredNotifications);
         $view->assign('success', true);
         $view->assign('error', false);
         $view->assign('contexts', $this->contexts());
@@ -68,24 +77,24 @@ class Controller extends ControllerAdmin
     {
         Piwik::checkUserHasSuperUserAccess();
         $enabled = trim(Request::fromRequest()->getStringParameter('enabled', 'string'));
+        $public = trim(Request::fromRequest()->getStringParameter('public', 'string'));
         $title = trim(Request::fromRequest()->getStringParameter('title', 'string'));
         $message = trim(Request::fromRequest()->getStringParameter('message', 'string'));
         $context = trim(Request::fromRequest()->getStringParameter('context', 'string'));
         $priority = trim(Request::fromRequest()->getStringParameter('priority', 'string'));
         $type = trim(Request::fromRequest()->getStringParameter('type', 'string'));
         $raw = trim(Request::fromRequest()->getStringParameter('raw', 'string'));
-        $siteIds = trim(Request::fromRequest()->getStringParameter('site_ids', 'string'));
 
         try {
             API::getInstance()->insertNotification(
                 $enabled,
+                $public,
                 $title,
                 $message,
                 $context,
                 $priority,
                 $type,
-                $raw,
-                $siteIds
+                $raw
             );
             $this->logger()->debug(
                 'Created notification: {message}',
@@ -187,17 +196,17 @@ class Controller extends ControllerAdmin
         Piwik::checkUserHasSuperUserAccess();
         $notificationId = trim(Request::fromRequest()->getStringParameter('id', 'string'));
         $enabled = trim(Request::fromRequest()->getStringParameter('enabled', 'string'));
+        $public = trim(Request::fromRequest()->getStringParameter('public', 'string'));
         $title = trim(Request::fromRequest()->getStringParameter('title', 'string'));
         $message = trim(Request::fromRequest()->getStringParameter('message', 'string'));
         $context = trim(Request::fromRequest()->getStringParameter('context', 'string'));
         $priority = trim(Request::fromRequest()->getStringParameter('priority', 'string'));
         $type = trim(Request::fromRequest()->getStringParameter('type', 'string'));
         $raw = trim(Request::fromRequest()->getStringParameter('raw', 'string'));
-        $siteIds = trim(Request::fromRequest()->getStringParameter('site_ids', 'string'));
 
         try {
             $api = new API();
-            $api->updateNotification($notificationId, $enabled, $title, $message, $context, $priority, $type, $raw, $siteIds);
+            $api->updateNotification($notificationId, $enabled, $public, $title, $message, $context, $priority, $type, $raw);
             $notificationList[] = 'Notification ' . $notificationId . ' updated';
             return $this->index(0, $notificationList);
         } catch (\Exception $e) {

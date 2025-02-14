@@ -4,7 +4,7 @@
 
     {% if notifications is not empty and notifications|length %}
         {% for notificationId, n in notifications %}
-            {{ n.message|notification({'id': notificationId, 'type': n.type, 'title': n.title, 'noclear': n.hasNoClear, 'context': n.context, 'raw': n.raw, 'site_ids': n.site_ids}, false) }}
+            {{ n.message|notification({'id': notificationId, 'type': n.type, 'title': n.title, 'noclear': n.hasNoClear, 'context': n.context, 'raw': n.raw}, false) }}
         {% endfor %}
     {% endif %}
     {% if notificationList|length >= 1 %}
@@ -22,13 +22,13 @@
                 <thead>
                     <tr>
                         <th>{{ 'RebelNotifications_Enabled'|translate }}</th>
+                        <th>{{ 'RebelNotifications_Public'|translate }}</th>
                         <th>{{ 'RebelNotifications_Title'|translate }}</th>
                         <th>{{ 'RebelNotifications_Message'|translate }}</th>
                         <th>{{ 'RebelNotifications_Context'|translate }}</th>
                         <th>{{ 'RebelNotifications_Priority'|translate }}</th>
                         <th>{{ 'RebelNotifications_Type'|translate }}</th>
                         <th>{{ 'RebelNotifications_Raw'|translate }}</th>
-                        <th>{{ 'RebelNotifications_SiteIDs'|translate }}</th>
                         <th>{{ 'RebelNotifications_Edit'|translate }}</th>
                         <th>{{ 'RebelNotifications_Delete'|translate }}</th>
                     </tr>
@@ -42,13 +42,18 @@
                                 <span class="icon-hide" title="{{ 'RebelNotifications_Disabled'|translate }}"></span>
                             {% endif %}
                            </td>
+                           <td>{% if notification.public == "1" %}
+                                <span class="icon-show" title="{{ 'RebelNotifications_Public'|translate }}"></span>
+                            {% elseif notification.public == "0" %}
+                                <span class="icon-hide" title="{{ 'RebelNotifications_NotPublic'|translate }}"></span>
+                            {% endif %}
+                           </td>
                             <td>{{ notification.title }}</td>
                             <td>{{ notification.message | raw }}</td>
                             <td>{{ notification.context }}</td>
                             <td>{{ notification.priority }}</td>
                             <td>{{ notification.type }}</td>
                             <td>{{ notification.raw }}</td>
-                            <td>{{ notification.site_ids }}</td>
                             <td>
                                 <a href="{{ linkTo({'module':'RebelNotifications','action':'editNotification', 'id': notification.id}) }}" title="{{ 'RebelNotifications_EditNotification'|translate }}">
                                     <span class="icon-edit"></span>
@@ -71,6 +76,12 @@
                         <label for="enabled">
                             <input type="checkbox" id="enabled" name="enabled" value="1" checked>
                             <span>{{ 'RebelNotifications_Enabled'|translate }}</span>
+                        </label>
+                    </div>
+                    <div class="checkbox row">
+                        <label for="public">
+                            <input type="checkbox" id="public" name="public" value="1" checked>
+                            <span>{{ 'RebelNotifications_Public'|translate }}</span>
                         </label>
                     </div>
                     <div class="row">
@@ -117,12 +128,6 @@
                         <label for="raw">
                             <input type="checkbox" id="raw" name="raw" value="1">
                             <span>{{ 'RebelNotifications_RawHTML'|translate }}</span>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label>
-                            Site IDs (comma-separated, leave empty for all):
-                            <input type="text" name="site_ids" value="" placeholder="e.g., 1,2,3">
                         </label>
                     </div>
                     <div class="row">

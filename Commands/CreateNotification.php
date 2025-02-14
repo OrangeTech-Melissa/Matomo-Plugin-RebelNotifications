@@ -53,6 +53,12 @@ class CreateNotification extends ConsoleCommand
                     null
                 );
                 $this->addNoValueOption(
+                    'public',
+                    null,
+                    'Display only for public sites',
+                    null
+                );
+                $this->addNoValueOption(
                     'raw',
                     null,
                     'Allow raw (HTML) input in message',
@@ -94,19 +100,12 @@ class CreateNotification extends ConsoleCommand
                     'Type',
                     null
                 );
-                $this->addOptionalValueOption(
-                    'site_ids',
-                    null,
-                    'Comma-separated list of site IDs (leave empty for all)',
-                    null
-                );
     }
 
     protected function doExecute(): int
     {
         $input = $this->getInput();
         $output = $this->getOutput();
-        $siteIds = $input->getOption('site_ids') ?? '';
 
         if (!$input->hasOption('enabled') || $input->getOption('enabled') === null) {
             $enabled = 0;
@@ -117,6 +116,11 @@ class CreateNotification extends ConsoleCommand
             $raw = 0;
         } else {
             $raw = 1;
+        }
+        if (!$input->hasOption('public') || $input->getOption('public') === null) {
+            $public = 0;
+        } else {
+            $public = 1;
         }
         if (!$input->hasOption('type') || $input->getOption('type') === null) {
             throw new \InvalidArgumentException("The 'type' option is required.");
@@ -139,7 +143,7 @@ class CreateNotification extends ConsoleCommand
         }
         $priority = $input->getOption('priority');
         $api = new API();
-        $addNotification = $api->insertNotification($enabled, $title, $message, $context, $priority, $type, $raw, $siteIds);
+        $addNotification = $api->insertNotification($enabled, $title, $message, $context, $priority, $type, $raw, $public);
         $message = sprintf('<info>Created notification: %s</info>', $title);
 
         $output->writeln($message);

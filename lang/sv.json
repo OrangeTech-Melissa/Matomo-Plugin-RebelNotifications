@@ -20,6 +20,7 @@
     "RebelNotifications": "Rebel Notifications",
     "Title": "Titel",
     "Type": "Typ",
-    "SiteIDs": "Webbplats-ID"
+    "Public": "Offentlig",
+    "NotPublic": "ikke offentlig"
   }
 }

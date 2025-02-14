@@ -17,6 +17,16 @@
                             <span>Enabled</span>
                         </label>
                     </div>
+                    <div class="checkbox row">
+                        <label for="public">
+                            <input type="checkbox"
+                                   id="public"
+                                   name="public"
+                                   value="1"
+                                   {% if notification.public %}checked{% endif %}>
+                            <span>Public</span>
+                        </label>
+                    </div>
                     <div class="row">
                         <label>
                             Title:
@@ -74,12 +84,6 @@
                                    value="1"
                                    {% if notification.raw %}checked{% endif %}>
                             <span>Raw (HTML)</span>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label>
-                            Site IDs (comma-separated, leave empty for all):
-                            <input type="text" name="site_ids" value="{{ notification.site_ids }}" placeholder="e.g., 1,2,3">
                         </label>
                     </div>
                     <button type="submit" class="btn">Save Changes</button>
