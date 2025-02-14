@@ -19,6 +19,7 @@
       "RawHTML": "Raw (HTML)",
       "RebelNotifications": "Rebel Notifications",
       "Title": "Title",
-      "Type": "Type"
+      "Type": "Type",
+      "SiteIDs": "Site IDs"
   }
 }

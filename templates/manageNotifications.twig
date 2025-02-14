@@ -4,7 +4,7 @@
 
     {% if notifications is not empty and notifications|length %}
         {% for notificationId, n in notifications %}
-            {{ n.message|notification({'id': notificationId, 'type': n.type, 'title': n.title, 'noclear': n.hasNoClear, 'context': n.context, 'raw': n.raw}, false) }}
+            {{ n.message|notification({'id': notificationId, 'type': n.type, 'title': n.title, 'noclear': n.hasNoClear, 'context': n.context, 'raw': n.raw, 'site_ids': n.site_ids}, false) }}
         {% endfor %}
     {% endif %}
     {% if notificationList|length >= 1 %}
@@ -28,6 +28,7 @@
                         <th>{{ 'RebelNotifications_Priority'|translate }}</th>
                         <th>{{ 'RebelNotifications_Type'|translate }}</th>
                         <th>{{ 'RebelNotifications_Raw'|translate }}</th>
+                        <th>{{ 'RebelNotifications_SiteIDs'|translate }}</th>
                         <th>{{ 'RebelNotifications_Edit'|translate }}</th>
                         <th>{{ 'RebelNotifications_Delete'|translate }}</th>
                     </tr>
@@ -47,6 +48,7 @@
                             <td>{{ notification.priority }}</td>
                             <td>{{ notification.type }}</td>
                             <td>{{ notification.raw }}</td>
+                            <td>{{ notification.site_ids }}</td>
                             <td>
                                 <a href="{{ linkTo({'module':'RebelNotifications','action':'editNotification', 'id': notification.id}) }}" title="{{ 'RebelNotifications_EditNotification'|translate }}">
                                     <span class="icon-edit"></span>
@@ -115,6 +117,12 @@
                         <label for="raw">
                             <input type="checkbox" id="raw" name="raw" value="1">
                             <span>{{ 'RebelNotifications_RawHTML'|translate }}</span>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            Site IDs (comma-separated, leave empty for all):
+                            <input type="text" name="site_ids" value="" placeholder="e.g., 1,2,3">
                         </label>
                     </div>
                     <div class="row">

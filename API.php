@@ -41,12 +41,13 @@ class API extends \Piwik\Plugin\API
         string $context,
         string $priority,
         string $type,
-        string $raw
+        string $raw,
+        string $siteIds
     ): void {
         Piwik::checkUserHasSuperUserAccess();
         $query = "INSERT INTO `" . Common::prefixTable('rebel_notifications') . "`
-            (enabled, title, message, context, priority, type, raw) VALUES (?,?,?,?,?,?,?)";
-        $params = [$enabled, $title, $message, $context, $priority, $type, $raw];
+            (enabled, title, message, context, priority, type, raw, site_ids) VALUES (?,?,?,?,?,?,?,?)";
+        $params = [$enabled, $title, $message, $context, $priority, $type, $raw, $siteIds];
 
         $db = $this->getDb();
 
@@ -85,14 +86,15 @@ class API extends \Piwik\Plugin\API
         string $context,
         string $priority,
         string $type,
-        string $raw
+        string $raw,
+        string $siteIds
     ): void {
         Piwik::checkUserHasSuperUserAccess();
 
         $query = "UPDATE `" . Common::prefixTable('rebel_notifications') . "`
-                  SET enabled = ?, title = ?, message = ?, context = ?, priority = ?, type = ?, raw = ?
+                  SET enabled = ?, title = ?, message = ?, context = ?, priority = ?, type = ?, raw = ?, site_ids = ?
                   WHERE id = ?";
-        $params = [$enabled, $title, $message, $context, $priority, $type, $raw, $id];
+        $params = [$enabled, $title, $message, $context, $priority, $type, $raw, $siteIds, $id];
 
         $db = $this->getDb();
 
