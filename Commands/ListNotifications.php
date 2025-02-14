@@ -83,6 +83,7 @@ class ListNotifications extends ConsoleCommand
             $out .= "Priority: <comment>{$notification['priority']}</comment>\n";
             $out .= "Type: <comment>{$notification['type']}</comment>\n";
             $out .= "Raw (HTML allowed): <comment>{$raw}</comment>\n";
+            $out .= "Site IDs: <comment>{$notification['site_ids']}</comment>\n";
             $out .= "-----------------------------------";
             $output->writeln("<info>$out</info>");
         }

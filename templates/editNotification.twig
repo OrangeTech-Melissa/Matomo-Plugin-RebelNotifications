@@ -76,6 +76,12 @@
                             <span>Raw (HTML)</span>
                         </label>
                     </div>
+                    <div class="row">
+                        <label>
+                            Site IDs (comma-separated, leave empty for all):
+                            <input type="text" name="site_ids" value="{{ notification.site_ids }}" placeholder="e.g., 1,2,3">
+                        </label>
+                    </div>
                     <button type="submit" class="btn">Save Changes</button>
                     <a href="{{ linkTo({"module": "RebelNotifications", "action": "index"}) }}"
                        class="btn">Cancel</a>

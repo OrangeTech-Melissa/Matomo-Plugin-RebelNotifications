@@ -74,6 +74,7 @@ class Controller extends ControllerAdmin
         $priority = trim(Request::fromRequest()->getStringParameter('priority', 'string'));
         $type = trim(Request::fromRequest()->getStringParameter('type', 'string'));
         $raw = trim(Request::fromRequest()->getStringParameter('raw', 'string'));
+        $siteIds = trim(Request::fromRequest()->getStringParameter('site_ids', 'string'));
 
         try {
             API::getInstance()->insertNotification(
@@ -83,7 +84,8 @@ class Controller extends ControllerAdmin
                 $context,
                 $priority,
                 $type,
-                $raw
+                $raw,
+                $siteIds
             );
             $this->logger()->debug(
                 'Created notification: {message}',
@@ -191,10 +193,11 @@ class Controller extends ControllerAdmin
         $priority = trim(Request::fromRequest()->getStringParameter('priority', 'string'));
         $type = trim(Request::fromRequest()->getStringParameter('type', 'string'));
         $raw = trim(Request::fromRequest()->getStringParameter('raw', 'string'));
+        $siteIds = trim(Request::fromRequest()->getStringParameter('site_ids', 'string'));
 
         try {
             $api = new API();
-            $api->updateNotification($notificationId, $enabled, $title, $message, $context, $priority, $type, $raw);
+            $api->updateNotification($notificationId, $enabled, $title, $message, $context, $priority, $type, $raw, $siteIds);
             $notificationList[] = 'Notification ' . $notificationId . ' updated';
             return $this->index(0, $notificationList);
         } catch (\Exception $e) {

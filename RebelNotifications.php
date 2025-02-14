@@ -74,6 +74,7 @@ class RebelNotifications extends \Piwik\Plugin
             `type` varchar(128) NOT NULL,
             `raw` int NOT NULL,
             `flags` varchar(255),
+            `site_ids` varchar(255) NOT NULL DEFAULT '',
             `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`)
             )

@@ -94,12 +94,20 @@ class CreateNotification extends ConsoleCommand
                     'Type',
                     null
                 );
+                $this->addOptionalValueOption(
+                    'site_ids',
+                    null,
+                    'Comma-separated list of site IDs (leave empty for all)',
+                    null
+                );
     }
 
     protected function doExecute(): int
     {
         $input = $this->getInput();
         $output = $this->getOutput();
+        $siteIds = $input->getOption('site_ids') ?? '';
+
         if (!$input->hasOption('enabled') || $input->getOption('enabled') === null) {
             $enabled = 0;
         } else {
@@ -131,7 +139,7 @@ class CreateNotification extends ConsoleCommand
         }
         $priority = $input->getOption('priority');
         $api = new API();
-        $addNotification = $api->insertNotification($enabled, $title, $message, $context, $priority, $type, $raw);
+        $addNotification = $api->insertNotification($enabled, $title, $message, $context, $priority, $type, $raw, $siteIds);
         $message = sprintf('<info>Created notification: %s</info>', $title);
 
         $output->writeln($message);
